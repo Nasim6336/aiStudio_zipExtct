@@ -32,6 +32,12 @@ async function startServer() {
   // Connect to MongoDB
   await connectDB();
 
+  // If you want to be explicit, you can also add:
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
   // API Routes
   app.use('/api/auth', authRoutes);
   app.use('/api/notes', noteRoutes);
