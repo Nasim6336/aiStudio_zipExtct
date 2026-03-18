@@ -8,6 +8,7 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-for-dev';
 
 router.post('/register', async (req, res) => {
+  console.log('inside backend register:',req.body)
   const { email, password, name } = req.body;
   if (!email || !password || !name) {
     return res.status(400).json({ error: 'All fields are required' });
@@ -30,6 +31,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+  console.log('inside login',req.body);
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password are required' });
