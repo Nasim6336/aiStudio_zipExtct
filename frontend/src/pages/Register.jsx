@@ -18,7 +18,7 @@ export default function Register() {
     e.preventDefault();
     setError('');
     setLoading(true);
-
+console.log(`register full url : ${API_BASE_URL}/api/auth/register`);
     try {
       const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
