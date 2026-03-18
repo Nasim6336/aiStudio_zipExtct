@@ -14,13 +14,12 @@ const app = express();
 // Allow requests from your Vercel frontend
 app.use(cors({
   origin: [
-    "http://localhost:5173", // Vite default
-    "http://localhost:4000",
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+    "http://localhost:5173", // dev
+    "https://demonote-3zspke920-qvbsinth-3275s-projects.vercel.app" // Vercel frontend
+  ],
+  credentials: true // allow cookies/auth headers
 }));
+
 
 
 async function startServer() {
