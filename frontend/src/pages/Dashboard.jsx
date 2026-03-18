@@ -60,6 +60,7 @@ export default function Dashboard() {
    * Updates the `notes` state and handles loading/error states.
    */
   const fetchNotes = async () => {
+    console.log(`in dashboard fetchnotes:${API_BASE_URL}/api/auth/logout`);
     try {
       const res = await fetch(`${API_BASE_URL}/api/notes`);
       const data = await res.json();
