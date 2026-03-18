@@ -12,12 +12,11 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 // Allow requests from your Vercel frontend
+ 
 app.use(cors({
-  origin: [
-    "http://localhost:5173", // dev
-    "https://demonote-3zspke920-qvbsinth-3275s-projects.vercel.app" // Vercel frontend
-  ],
-  credentials: true // allow cookies/auth headers
+  origin: 'https://demonote-pre.vercel.app', // Your actual Vercel URL
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  credentials: true
 }));
 
 
