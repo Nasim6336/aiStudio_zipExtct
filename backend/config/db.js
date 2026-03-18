@@ -10,7 +10,7 @@ export const connectDB = async () => {
 
   
 
-    await mongoose.connect(`mongodb+srv://qvbsinth_db_user:${process.env.DB_PASSWORD}@cluster0.x3y6fdt.mongodb.net/aistudionotes?appName=Cluster0`);
+    await mongoose.connect(`mongodb+srv://qvbsinth_db_user:${process.env.DB_PASSWORD}@cluster0.x3y6fdt.mongodb.net/demonotespr?appName=Cluster0`);
     console.log('Connected to MongoDB');
   } catch (error) {
     console.error('MongoDB connection error:', error);
