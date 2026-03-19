@@ -20,7 +20,8 @@ router.post('/register', async (req, res) => {
     await user.save();
     
     const token = jwt.sign({ id: user._id, email, name }, JWT_SECRET, { expiresIn: '24h' });
-    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax' });
+    res.cookie('token', token, { httpOnly: true, secure: true , sameSite: 'none', 
+  maxAge: 24 * 60 * 60 * 1000 });
     res.status(201).json({ user: { id: user._id, email, name } });
   } catch (error) {
     if (error.code === 11000) {
