@@ -166,6 +166,7 @@ export default function Dashboard() {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
+  credentials: "include",
         });
         const updatedNote = await res.json();
         setNotes(notes.map((n) => (n.id === updatedNote.id ? updatedNote : n)));
@@ -175,6 +176,7 @@ export default function Dashboard() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
+  credentials: "include",
         });
         const newNote = await res.json();
         setNotes([newNote, ...notes]);
