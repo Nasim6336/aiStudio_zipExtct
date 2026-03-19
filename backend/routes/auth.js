@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
     await user.save();
     
     const token = jwt.sign({ id: user._id, email, name }, JWT_SECRET, { expiresIn: '24h' });
-    res.cookie('token', token, { httpOnly: true, secure: true , sameSite: 'none' });
+    res.cookie('token', token, { httpOnly: true, secure: true , sameSite: 'none',maxAge: 7 * 24 * 60 * 60 * 1000 });
     res.status(201).json({ user: { id: user._id, email, name } });
   } catch (error) {
     if (error.code === 11000) {
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id, email: user.email, name: user.name }, JWT_SECRET, { expiresIn: '24h' });
-    res.cookie('token', token, { httpOnly: true, secure: true , sameSite: 'none' });
+    res.cookie('token', token, { httpOnly: true, secure: true , sameSite: 'none', maxAge: 7 * 24 * 60 * 60 * 1000});
     res.json({ user: { id: user._id, email: user.email, name: user.name } });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
