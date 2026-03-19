@@ -5,7 +5,7 @@ import User from '../models/User.js';
 import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-for-dev';
+const JWT_SECRET = 'super-secret-key-for-dev';
 
 router.post('/register', async (req, res) => {
   console.log('inside backend register:',req.body)
@@ -20,8 +20,7 @@ router.post('/register', async (req, res) => {
     await user.save();
     
     const token = jwt.sign({ id: user._id, email, name }, JWT_SECRET, { expiresIn: '24h' });
-    res.cookie('token', token, { httpOnly: true, secure: true , sameSite: 'none', 
-  maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie('token', token, { httpOnly: true, secure: true , sameSite: 'none' });
     res.status(201).json({ user: { id: user._id, email, name } });
   } catch (error) {
     if (error.code === 11000) {
@@ -50,7 +49,7 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id, email: user.email, name: user.name }, JWT_SECRET, { expiresIn: '24h' });
-    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax' });
+    res.cookie('token', token, { httpOnly: true, secure: true , sameSite: 'none' });
     res.json({ user: { id: user._id, email: user.email, name: user.name } });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
