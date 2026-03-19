@@ -8,17 +8,23 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/auth/me`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.user) {
-          setUser(data.user);
-        }
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, []);
-
+  fetch(`${API_BASE_URL}/api/auth/me`, { 
+    credentials: 'include' // <--- INSERT THIS LINE
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Not authenticated");
+      return res.json();
+    })
+    .then(data => {
+      if (data.user) {
+        setUser(data.user);
+      }
+    })
+    .catch(() => {
+      setUser(null); // Ensure user is null if fetch fails
+    })
+    .finally(() => setLoading(false));
+}, []);
   return (
     <AuthContext.Provider value={{ user, setUser, loading }}>
       {children}
