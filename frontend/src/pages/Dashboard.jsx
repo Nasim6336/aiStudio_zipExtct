@@ -60,17 +60,30 @@ export default function Dashboard() {
    * Updates the `notes` state and handles loading/error states.
    */
   const fetchNotes = async () => {
-    console.log(`in dashboard fetchnotes:${API_BASE_URL}/api/auth/logout`);
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/notes`);
-      const data = await res.json();
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/notes`, {
+      method: 'GET', 
+      credentials: 'include', 
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    const data = await res.json();
+
+    // Safety check: only set notes if data is an array
+    if (res.ok && Array.isArray(data)) {
       setNotes(data);
-    } catch (error) {
-      console.error("Failed to fetch notes", error);
-    } finally {
-      setLoading(false);
+    } else {
+      console.error("Server returned an error or non-array:", data);
+      setNotes([]); // Fallback to empty array to prevent .map/.forEach crashes
     }
-  };
+  } catch (error) {
+    console.error("Failed to fetch notes", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   // --- Data Processing & Memos ---
 
