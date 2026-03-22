@@ -9,10 +9,12 @@ export default function Layout({ children }) {
 console.log(`in layout:${API_BASE_URL}/api/auth/logout`);
   const handleLogout = async () => {
     console.log(`in layout:${API_BASE_URL}/api/auth/logout`);
-    await fetch(`${API_BASE_URL}/api/auth/logout`, {
+    const resp = await fetch(`${API_BASE_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
+
+    if(!resp.ok){console.log('logout resp not ok'); return 0;}
     setUser(null);
     navigate('/login');
   };
