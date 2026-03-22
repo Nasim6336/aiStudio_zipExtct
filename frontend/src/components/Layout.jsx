@@ -8,6 +8,7 @@ export default function Layout({ children }) {
   const navigate = useNavigate();
 console.log(`in layout:${API_BASE_URL}/api/auth/logout`);
   const handleLogout = async () => {
+    console.log(`in layout:${API_BASE_URL}/api/auth/logout`);
     await fetch(`${API_BASE_URL}/api/auth/logout`, { method: 'POST' });
     setUser(null);
     navigate('/login');
