@@ -8,16 +8,28 @@ export default function Layout({ children }) {
   const navigate = useNavigate();
 console.log(`in layout:${API_BASE_URL}/api/auth/logout`);
   const handleLogout = async () => {
-    console.log(`in layout:${API_BASE_URL}/api/auth/logout`);
+  try {
+    // 1. Always use credentials: 'include' for cookie-based JWT
     const resp = await fetch(`${API_BASE_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
 
-    if(!resp.ok){console.log('logout resp not ok'); return 0;}
+    if (!resp.ok) {
+      throw new Error(`Logout failed with status: ${resp.status}`);
+    }
+
+    console.log("Logout successful on server");
+  } catch (error) {
+    // 2. Log the error for debugging, but don't stop the flow
+    console.error("Logout Error:", error.message);
+  } finally {
+    // 3. CRITICAL: Clear local state regardless of server success
+    // If the server is down, we still want the user "logged out" locally
     setUser(null);
-    navigate('/login');
-  };
+    navigate('/login'); 
+  }
+};
 
   return (
     <div className="min-h-screen bg-slate-50">
