@@ -197,7 +197,8 @@ export default function Dashboard() {
     if (!confirm("Are you sure you want to delete this note?")) return;
 
     try {
-      await fetch(`${API_BASE_URL}/api/notes/${id}`, { method: "DELETE" });
+      await fetch(`${API_BASE_URL}/api/notes/${id}`, { method: "DELETE" ,
+  credentials: "include"});
       setNotes(notes.filter((n) => n.id !== id));
     } catch (error) {
       console.error("Failed to delete note", error);
