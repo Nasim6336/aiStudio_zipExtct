@@ -11,10 +11,10 @@ import noteRoutes from './routes/notes.js';
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
-// Allow requests from your Vercel frontend
+
  
 app.use(cors({
-  origin: 'https://demonote-pre.vercel.app', // Your actual Vercel URL
+  origin: 'https://demonote-pre.vercel.app', 
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
@@ -28,10 +28,10 @@ async function startServer() {
   app.use(express.json());
   app.use(cookieParser());
 
-  // Connect to MongoDB
+ 
   await connectDB();
 
-  // If you want to be explicit, you can also add:
+ 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
