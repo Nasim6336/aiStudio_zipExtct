@@ -20,10 +20,10 @@ export function AuthProvider({ children }) {
 
       const data = await res.json();
       
-      // DEBUG: Log this to see what your backend actually sends!
+     
       console.log("Auth Data:", data);
 
-      // Check if data is the user object itself or nested under .user
+      
       const userData = data.user || data; 
       
       if (userData && (userData.id || userData._id)) {
@@ -35,7 +35,7 @@ export function AuthProvider({ children }) {
       console.error("Auth check failed:", error);
       setUser(null);
     } finally {
-      // Ensure this only happens AFTER we know the user status
+      
       setLoading(false);
     }
   };
